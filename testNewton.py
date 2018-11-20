@@ -7,18 +7,6 @@ import newton
 
 class TestNewton(unittest.TestCase):
     def testLinear(self):
-        # Just so you see it at least once, this is the lambda keyword
-        # in Python, which allows you to create anonymous functions
-        # "on the fly". As I commented in testFunctions.py, you can
-        # define regular functions inside other
-        # functions/methods. lambda expressions are just syntactic
-        # sugar for that.  In other words, the line below is
-        # *completely equivalent* under the hood to:
-        #
-        # def f(x):
-        #     return 3.0*x + 6.0
-        #
-        # No difference.
         f = lambda x : 3.0*x + 6.0
 
         # Setting maxiter to 2 b/c we're guessing the actual root
