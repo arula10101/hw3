@@ -23,6 +23,7 @@ dx : step size
 Df : analytic Jacobian (if not provided, approximate Jacobian is calculated and used)
 max_radius : radius within which the approximate root must lie from initial guess (raises exception if ||x_k-x_0||>max_radius)
 
+
 --
 
 testNewton.py
@@ -45,15 +46,27 @@ Contains test for the newton.py file
 
 functions.py
 
-
 function within the file:
 1) approximateJacobian : returns an approximation of the Jacobian Df(x) as a numpy matrix
-
 
 classes within the file:
 1) Polynomial : constructs a polynomial object
 Example usage: p = Polynomial([6,5,1])  
-
 2) TrigonometricFunctions : constructs f(x) = a*sin(x)+b*cos(x)+c
 Example usage: f = TrigonometricFunctions(a=2,b=2,c=4)
+
+
+--
+
+testFunctions.py
+
+1) test_ApproxJacobian1D : tests that approximate Jacobian is correct for a 1-dimensional function
+2) test_ApproxJacobian2D : tests that the approximate Jacobian is correct for a 2-dimensional function
+3) test_ApproxJacobianND : tests that the approximate Jacobian is correct for higher-dimensional function
+4) test_Polynomial: tests the Polynomial class
+5) testTrigonometricFunctions : tests the trigonometric class
+
+--
+
+
 
