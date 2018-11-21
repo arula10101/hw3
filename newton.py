@@ -13,7 +13,7 @@ class Newton(object):
 
     """
     
-    def __init__(self, f, tol=1.e-6, maxiter=20, dx=1.e-6):
+    def __init__(self, f, tol=1.e-6, maxiter=20, dx=1.e-6,max_radius=None,Df=None):
         """Parameters:
         
         f: the function whose roots we seek. Can be scalar- or
@@ -30,6 +30,9 @@ class Newton(object):
         self._tol = tol
         self._maxiter = maxiter
         self._dx = dx
+        self._max_radius = max_radius
+        self._Df = Df
+
 
     def solve(self, x0):
         """Determine a solution of f(x) = 0, using Newton's method, starting
@@ -48,6 +51,9 @@ class Newton(object):
             if np.linalg.norm(fx) < self._tol:
                 return x
             x = self.step(x, fx)
+            
+            if self._max_radius and np.linalg.norm(x-x0) > self._max_radius:
+                raise RuntimeError("Error: new guess is outside max_radius")
 
         return x
 
@@ -58,16 +64,19 @@ class Newton(object):
         """
         if fx is None:
             fx = self._f(x)
+            
 
-        Df_x = F.approximateJacobian(self._f, x, self._dx)
-        # linalg.solve(A,B) returns the matrix solution to AX = B, so
-        # it gives (A^{-1}) B. np.matrix() promotes scalars to 1x1
-        # matrices.
+        if self._Df:
+            Df_x = self._Df(x)
+        else:
+            Df_x = F.approximateJacobian(self._f, x, self._dx)
+        
         h = np.linalg.solve(np.matrix(Df_x), np.matrix(fx))
+        
         # Suppose x was a scalar. At this point, h is a 1x1 matrix. If
         # we want to return a scalar value for our next guess, we need
         # to re-scalarize h before combining it with our previous
-        # x. The function np.asscalar() will act on a numpy array or
+        # x The function np.asscalar() will act on a numpy array or
         # matrix that has only a single data element inside and return
         # that element as a scalar.
         if np.isscalar(x):
