@@ -61,7 +61,7 @@ class TestFunctions(unittest.TestCase):
             x0 = np.random.random((n,1))
             f = lambda x: np.dot(A,x)
             dx = 1.e-6
-            Df_x = F.ApproximateJacobian(f,x0,dx)
+            Df_x = F.approximateJacobian(f,x0,dx)
             self.assertEqual(Df_x.shape,(n,n))
             np.testing.assert_array_almost_equal(Df_x,A)
 
