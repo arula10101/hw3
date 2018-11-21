@@ -22,17 +22,16 @@ class TestNewton(unittest.TestCase):
         solver = newton.Newton(f,tol=1.e-15,maxiter=500)
         x = solver.solve(3.3)
         self.assertAlmostEqual(x,3.0)
-        
+       
+
     def testQuadratic2(self):
-        # f(x) = x^2 -2x - 3
-        f = F.Polynomial([-3,-2,1])
-        _Df = F.Polynomial([0,2,2])
-        solver = newton.Newton(f,tol=1.e-15,maxiter=500,max_radius=500,Df=_Df)
-        x = solver.solve(-1.4)
-        self.assertAlmostEqual(x,-1.0)
-
-
-
+        # y : x*x + 6*x + 9
+        f = F.Polynomial([9,6,1])
+        _Df = F.Polynomial([6,2])
+        solver = newton.Newton(f, tol=1.e-15, maxiter=200,Df=_Df)
+        x = solver.solve(-2.0)
+        self.assertAlmostEqual(x, -3.0)
+        
 
 
 if __name__ == "__main__":

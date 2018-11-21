@@ -6,6 +6,7 @@ Implementation of a Newton-Raphson root-finder.
 
 import numpy as np
 import functions as F
+import unittest
 
 class Newton(object):
     """Newton objects have a solve() method for finding roots of f(x)
@@ -50,7 +51,8 @@ class Newton(object):
             # linalg.norm works fine on scalar inputs
             if np.linalg.norm(fx) < self._tol:
                 return x
-            x = self.step(x, fx)
+            else:
+                x = self.step(x, fx)
             
             if self._max_radius and np.linalg.norm(x-x0) > self._max_radius:
                 raise RuntimeError("Error: new guess is outside max_radius")
