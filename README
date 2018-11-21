@@ -1,0 +1,59 @@
+# README file
+
+Uses Newton's method to find function roots. 
+Includes: 
+1) newton.py : implements the algorithm 
+2) testNewton.py : tests for newton.py
+3) functions.py : implements auxiliary functions to be used in newton.py
+3) testFunctions.py : tests for functions.py
+
+--
+
+newton.py
+
+Implements Newton's method (find the roots of f(x)=0).
+Newton objects have a solve() method for finding roots of f(x).
+both x and f(x) can be vector-valued.
+
+Arguments:
+f : function whose root we want to find
+tol : approximation tolerance for the root. Iterate until |f(x)|<tol
+maxiter : maximum number of iterations
+dx : step size
+Df : analytic Jacobian (if not provided, approximate Jacobian is calculated and used)
+max_radius : radius within which the approximate root must lie from initial guess (raises exception if ||x_k-x_0||>max_radius)
+
+--
+
+testNewton.py
+
+Contains test for the newton.py file
+
+1) testLinear : tests for the root of a linear function
+2) testQuadratic : tests for a quadratic polynomial
+3) testQuadratic2 : tests for a quadratic polynomial using an analytic Jacobian
+4) testZeroDerivative : tests for when initial guess leads to f'(x)=0
+5) test2D : tests a 2-dimensional function
+6) testRadius : test if max_radius is working
+7) testStep : test if step is working in Netwon's method
+8) testTangent : a different test for when initial guess has tangent parallel to x-axis
+9) testNoRoot : function with no roots to return maxiter error
+10) testBoundRoot : roots can only be within a certain bound
+
+
+--
+
+functions.py
+
+
+function within the file:
+1) approximateJacobian : returns an approximation of the Jacobian Df(x) as a numpy matrix
+
+
+classes within the file:
+1) Polynomial : constructs a polynomial object
+Example usage: p = Polynomial([6,5,1])  
+
+2) TrigonometricFunctions : constructs f(x) = a*sin(x)+b*cos(x)+c
+Example usage: f = TrigonometricFunctions(a=2,b=2,c=4)
+

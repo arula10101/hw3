@@ -85,11 +85,9 @@ class TestFunctions(unittest.TestCase):
         # But I though this would be more legible.
 
     def testTrigonometricFunctions(self):
-
         function = F.TrigonometricFunctions(a=2,b=2,c=4)
         test_x  = [ 0., 5., -2., 200, 5000]
         test_fx = [ 6., 2.6494758, 1.3491114, 3.2277807, 2.3334039]
-
         for test in range(len(test_x)):
             np.testing.assert_array_almost_equal(function.f(test_x[test]),test_fx[test],decimal=4)
 

@@ -1,0 +1,15 @@
+# README file
+
+Uses Newton's method to find function roots. 
+Includes: 
+1) newton.py : implements the algorithm 
+2) testNewton.py : tests for newton.py
+3) functions.py : implements auxiliary functions to be used in newton.py
+3) testFunctions.py : tests for functions.py
+
+--
+
+newton.py
+
+Implements Newton's method (find the roots of f(x)=0).
+Arguments:
