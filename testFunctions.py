@@ -7,25 +7,17 @@ import numpy.testing as npt
 import functions as F
 
 class TestFunctions(unittest.TestCase):
-    def test_ApproxJacobian1(self):
-        slope = 3.0
-        # Yes, you can define a function inside a function/method. And
-        # it has scope only within the method within which it's
-        # defined (unless you return it to the outside world, which
-        # you can do in Python with no need for anything like C's
-        # malloc() or C++'s new() )
-        def f(x):
-            return slope * x + 5.0
+    def test_ApproxJacobian1D(self):
+        for slope in range(-10,10):
+            for x0 in range(-10,10):
+                f = lambda x: slope*x + 5.0
+                dx = 1.e-3
+                Df_x = F.approximateJacobian(f, x0, dx)
+                # If x and f are scalar-valued, Df_x should be, too
+                self.assertTrue(np.isscalar(Df_x))
+                self.assertAlmostEqual(Df_x, slope)
 
-        x0 = 2.0
-        dx = 1.e-3
-        Df_x = F.approximateJacobian(f, x0, dx)
-        # self.assertEqual(Df_x.shape, (1,1)
-        # If x and f are scalar-valued, Df_x should be, too
-        self.assertTrue(np.isscalar(Df_x))
-        self.assertAlmostEqual(Df_x, slope)
-
-    def test_ApproxJacobian2(self):
+    def test_ApproxJacobian2D(self):
         # numpy matrices can also be initialized with strings. The
         # semicolon separates rows; spaces (or commas) delimit entries
         # within a row.
@@ -61,6 +53,18 @@ class TestFunctions(unittest.TestCase):
         # boolean"), so normal assert statements will break. We need
         # array-specific assert statements found in numpy.testing
         npt.assert_array_almost_equal(Df_x, A)
+
+
+    def testApproxJacobianND(self):
+        for n in range(10):
+            A = np.random.random((n,n))
+            x0 = np.random.random((n,1))
+            f = lambda x: np.dot(A,x)
+            dx = 1.e-6
+            Df_x = F.ApproximateJacobian(f,x0,dx)
+            self.assertEqual(Df_x.shape,(n,n))
+            np.testing.assert_array_almost_equal(Df_x,A)
+
 
     def test_Polynomial(self):
         # p(x) = x^2 + 5x + 4

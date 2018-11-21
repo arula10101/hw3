@@ -45,8 +45,12 @@ class Newton(object):
         # NOTE: no need to check whether x0 is scalar or vector. All
         # the functions/methods invoked inside solve() return "the
         # right thing" when x0 is scalar.
-        x = x0
+        x = 1.0*x0 #turns x0 into a float. Still works for x0 complex.
         for i in range(self._maxiter):
+            if i == self._maxiter:
+                msg = "Failed to converge after %d iterations, value is %s" % (maxiter, x)
+                raise RuntimeError(msg)
+
             fx = self._f(x)
             # linalg.norm works fine on scalar inputs
             if np.linalg.norm(fx) < self._tol:
@@ -72,6 +76,7 @@ class Newton(object):
             Df_x = self._Df(x)
         else:
             Df_x = F.approximateJacobian(self._f, x, self._dx)
+            
         
         h = np.linalg.solve(np.matrix(Df_x), np.matrix(fx))
         
@@ -83,5 +88,6 @@ class Newton(object):
         # that element as a scalar.
         if np.isscalar(x):
             h = np.asscalar(h)
+        
 
         return x - h

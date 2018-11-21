@@ -19,7 +19,7 @@ class TestNewton(unittest.TestCase):
     def testQuadratic(self):
         # f(x) = x^2 - 2x - 3
         f = F.Polynomial([-3,-2,1])
-        solver = newton.Newton(f,tol=1.e-15,maxiter=500)
+        solver = newton.Newton(f,tol=1.e-15,maxiter=200)
         x = solver.solve(3.3)
         self.assertAlmostEqual(x,3.0)
        
@@ -32,7 +32,18 @@ class TestNewton(unittest.TestCase):
         x = solver.solve(-2.0)
         self.assertAlmostEqual(x, -3.0)
         
+    def testExponential(self):
+        # f(x) = e^x
+        f = lambda x: np.exp(x)+1.0
+        solver = newton.Newton(f,tol=1.e-15,maxiter=200)
+        x = solver.solve(1.0)
+        self.assertEqual(x,float('inf'))
 
+    def testZeroDerivative(self):
+        f = F.Polynomial([0,0,1])
+        solver = newton.Newton(f,tol=1.e-15,maxiter=2)
+        x = solver.solve(0.0)
+        self.assertAlmostEqual(x,1.0)
 
 if __name__ == "__main__":
     unittest.main()
