@@ -47,9 +47,8 @@ class Newton(object):
         # right thing" when x0 is scalar.
         x = 1.0*x0 #turns x0 into a float. Still works for x0 complex.
         for i in range(self._maxiter):
-            if i == self._maxiter:
-                msg = "Failed to converge after %d iterations, value is %s" % (maxiter, x)
-                raise RuntimeError(msg)
+            if i == self._maxiter - 1:
+                raise RecursionError("Error: reached maxiter")
 
             fx = self._f(x)
             # linalg.norm works fine on scalar inputs
