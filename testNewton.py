@@ -74,6 +74,13 @@ class TestNewton(unittest.TestCase):
         x = solver.solve(0.05)
         self.assertAlmostEqual(x,0.0)
 
+    def test2Danalytic(self):
+        f = F.Polynomial([-9,0,1])
+        _Df = lambda x: 2*x
+        solver = newton.Newton(f,tol=1.e-15,maxiter=200,Df=_Df)
+        x = solver.solve(-4.0)
+        self.assertAlmostEqual(x,-3.0)
+
 if __name__ == "__main__":
     unittest.main()
 

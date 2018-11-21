@@ -40,7 +40,7 @@ Contains test for the newton.py file
 8) testTangent : a different test for when initial guess has tangent parallel to x-axis
 9) testNoRoot : function with no roots to return maxiter error
 10) testBoundRoot : roots can only be within a certain bound
-
+11) test1Danalytic : tests a 1-dimensional function with an analytic Jacobian given by a lambda function
 
 --
 
