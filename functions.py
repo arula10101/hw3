@@ -83,3 +83,23 @@ class Polynomial(object):
     def __call__(self, x):
         return self._f(x)
 
+class TrigonometricFunctions(object):
+    """ 
+    
+    Solve f(x) = a*sen(x) + b*cos(x) + c
+    
+    """
+
+    def __init__(self,a,b,c):
+        self._a = a
+        self._b = b
+        self._c = c
+        
+    def __call__(self,x):
+        return self.f(x)
+    
+    def f(self,x):
+        return self._a * np.sin(x) + self._b * np.cos(x) + self._c
+    
+    def Jacobian(self,x):
+        return np.matrix(self._a * np.cos(x) - self._b * np.sin(x))
