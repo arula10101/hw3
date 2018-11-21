@@ -84,6 +84,9 @@ class TestFunctions(unittest.TestCase):
         #
         # But I though this would be more legible.
 
+    def testPolynomial2D(self):
+        
+
 if __name__ == '__main__':
     unittest.main()
 
